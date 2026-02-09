@@ -1,11 +1,750 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Your Name</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Personal website: research, projects, publications, and contact." />
+  <title>Your Name — Research & Portfolio</title>
+
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:#111a33;
+      --panel2:#0f1730;
+      --text:#e9edff;
+      --muted:#b7c2ff;
+      --muted2:#9aa7e8;
+      --link:#9bd7ff;
+      --accent:#7c5cff;
+      --accent2:#2de2e6;
+      --ok:#35d07f;
+      --border:rgba(255,255,255,.10);
+      --shadow: 0 12px 40px rgba(0,0,0,.35);
+      --radius:18px;
+      --max:1100px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      background:
+        radial-gradient(1200px 600px at 20% 10%, rgba(124,92,255,.25), transparent 55%),
+        radial-gradient(900px 500px at 90% 15%, rgba(45,226,230,.20), transparent 55%),
+        radial-gradient(1100px 700px at 50% 100%, rgba(155,215,255,.10), transparent 55%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.55;
+    }
+    a{color:var(--link); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 80px}
+    .topbar{
+      position:sticky; top:0; z-index:100;
+      backdrop-filter: blur(14px);
+      background: rgba(11,16,32,.65);
+      border-bottom:1px solid var(--border);
+    }
+    .topbar-inner{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:14px 18px;
+      display:flex; align-items:center; gap:14px; justify-content:space-between;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      min-width:240px;
+    }
+    .badge{
+      width:40px; height:40px;
+      border-radius:12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: var(--shadow);
+      display:grid; place-items:center;
+      font-weight:800;
+      letter-spacing:.5px;
+      color:#081022;
+    }
+    .brand .name{
+      font-weight:800;
+      letter-spacing:.2px;
+      font-size:15px;
+      margin:0;
+      line-height:1.1;
+    }
+    .brand .tag{
+      margin:2px 0 0;
+      color:var(--muted2);
+      font-size:12px;
+    }
+    nav ul{
+      list-style:none; padding:0; margin:0;
+      display:flex; flex-wrap:wrap;
+      gap:10px 14px;
+      justify-content:flex-end;
+    }
+    nav a{
+      display:inline-block;
+      padding:8px 10px;
+      border-radius:12px;
+      color:var(--text);
+      border:1px solid transparent;
+      font-size:13px;
+      opacity:.92;
+    }
+    nav a:hover{
+      border-color:var(--border);
+      background: rgba(255,255,255,.04);
+      text-decoration:none;
+    }
+
+    /* Hero */
+    .hero{
+      margin-top:26px;
+      border:1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border-radius: calc(var(--radius) + 6px);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .hero-inner{
+      padding:28px;
+      display:grid;
+      grid-template-columns: 1.35fr .65fr;
+      gap:22px;
+      align-items:stretch;
+    }
+    .hero h1{
+      font-size:34px;
+      margin:0 0 10px;
+      line-height:1.1;
+      letter-spacing:-.5px;
+    }
+    .hero p{
+      margin:10px 0 0;
+      color:var(--muted);
+      font-size:15px;
+    }
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:14px;
+    }
+    .chip{
+      font-size:12px;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      color:var(--muted);
+    }
+    .cta{
+      margin-top:18px;
+      display:flex; flex-wrap:wrap;
+      gap:10px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color:var(--text);
+      font-size:13px;
+      font-weight:650;
+      text-decoration:none;
+    }
+    .btn:hover{
+      background: rgba(255,255,255,.06);
+      text-decoration:none;
+    }
+    .btn.primary{
+      border-color:rgba(124,92,255,.55);
+      background: linear-gradient(135deg, rgba(124,92,255,.25), rgba(45,226,230,.12));
+    }
+    .btn .dot{
+      width:10px; height:10px; border-radius:50%;
+      background: var(--ok);
+      box-shadow:0 0 0 4px rgba(53,208,127,.16);
+    }
+
+    .profile-card{
+      border-left:1px solid var(--border);
+      padding-left:22px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .profile-card .box{
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      padding:14px;
+      background: rgba(17,26,51,.45);
+    }
+    .kv{
+      display:grid;
+      grid-template-columns: 110px 1fr;
+      gap:8px 12px;
+      margin:0;
+      font-size:13px;
+    }
+    .kv dt{color:var(--muted2)}
+    .kv dd{margin:0; color:var(--text)}
+    .mono{font-family:var(--mono)}
+    .small{font-size:12px; color:var(--muted2)}
+
+    /* Sections */
+    section{
+      margin-top:26px;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:16px;
+    }
+    .card{
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      border-radius: var(--radius);
+      padding:18px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.18);
+    }
+    .card h2{
+      margin:0 0 10px;
+      font-size:18px;
+      letter-spacing:-.2px;
+    }
+    .card h3{
+      margin:12px 0 8px;
+      font-size:15px;
+    }
+    .muted{color:var(--muted)}
+    .divider{
+      height:1px;
+      background: var(--border);
+      margin:14px 0;
+    }
+
+    /* Lists */
+    .list{
+      margin:10px 0 0;
+      padding-left:18px;
+      color:var(--muted);
+    }
+    .list li{margin:6px 0}
+    .kpi-row{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:10px;
+      margin-top:12px;
+    }
+    .kpi{
+      border:1px solid var(--border);
+      background: rgba(17,26,51,.35);
+      border-radius: 16px;
+      padding:12px;
+    }
+    .kpi .n{
+      font-size:18px;
+      font-weight:800;
+      letter-spacing:-.3px;
+    }
+    .kpi .l{
+      font-size:12px;
+      color:var(--muted2);
+      margin-top:4px;
+    }
+
+    /* Project cards */
+    .proj{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      padding:14px;
+      background: rgba(17,26,51,.35);
+    }
+    .proj .top{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:flex-start;
+    }
+    .tagpill{
+      font-size:11px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      color:var(--muted2);
+      white-space:nowrap;
+    }
+    .proj .title{
+      font-weight:800;
+      margin:0;
+      font-size:15px;
+    }
+    .proj .desc{
+      margin:0;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .proj .meta{
+      display:flex; flex-wrap:wrap;
+      gap:8px;
+      font-size:12px;
+      color:var(--muted2);
+    }
+    .proj .meta span{
+      border:1px solid var(--border);
+      border-radius:999px;
+      padding:5px 8px;
+      background: rgba(255,255,255,.02);
+    }
+
+    /* Publications */
+    .pub{
+      margin:0;
+      padding-left:18px;
+      color:var(--muted);
+    }
+    .pub li{margin:10px 0}
+    .pub strong{color:var(--text)}
+    .pub .where{color:var(--muted2); font-size:12px; margin-top:2px}
+
+    /* Contact */
+    .contact-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:16px;
+    }
+    .contact a.btn{justify-content:center}
+
+    /* Footer */
+    footer{
+      margin-top:34px;
+      color:var(--muted2);
+      font-size:12px;
+      text-align:center;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .hero-inner{grid-template-columns:1fr; padding:18px}
+      .profile-card{border-left:none; padding-left:0}
+      .grid{grid-template-columns:1fr}
+      .contact-grid{grid-template-columns:1fr}
+      nav ul{justify-content:flex-start}
+      .brand{min-width:auto}
+      .hero h1{font-size:28px}
+    }
+  </style>
 </head>
+
 <body>
-  <h1>Your Name</h1>
-  <p>Research | Projects | Contact</p>
+  <!-- Sticky navigation -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="badge">YN</div>
+        <div>
+          <p class="name">Your Name</p>
+          <p class="tag">Atmospheric Science • Machine Learning • Downscaling</p>
+        </div>
+      </div>
+
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#research">Research</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#publications">Publications</a></li>
+          <li><a href="#talks">Talks</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- HERO -->
+    <section class="hero" id="top">
+      <div class="hero-inner">
+        <div>
+          <h1>
+            Hi — I’m <span style="color:var(--accent2);">Your Name</span>.<br />
+            I build ML methods for weather & climate.
+          </h1>
+
+          <p>
+            I’m a <strong>student/researcher</strong> focused on
+            <strong>generative downscaling</strong>, <strong>climate emulation</strong>, and
+            <strong>hazard-focused ML</strong> (hail, extreme precipitation, convective mode).
+            This page is a detailed snapshot of my work: what I study, what I build, and how to reach me.
+          </p>
+
+          <div class="chips" aria-label="Focus areas">
+            <span class="chip">Score-based diffusion</span>
+            <span class="chip">CNNs / U-Nets</span>
+            <span class="chip">SOMs & regime discovery</span>
+            <span class="chip">xarray • NetCDF/Zarr/GRIB</span>
+            <span class="chip">Cartopy • geospatial viz</span>
+            <span class="chip">HPC workflows</span>
+          </div>
+
+          <div class="cta">
+            <a class="btn primary" href="#projects"><span class="dot"></span> View featured projects</a>
+            <a class="btn" href="https://github.com/YOURUSERNAME" target="_blank" rel="noopener">GitHub</a>
+            <a class="btn" href="https://www.linkedin.com/in/YOURPROFILE" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="btn" href="YOUR_CV_LINK.pdf" target="_blank" rel="noopener">CV (PDF)</a>
+          </div>
+
+          <div class="kpi-row" aria-label="Quick highlights">
+            <div class="kpi">
+              <div class="n">X+</div>
+              <div class="l">Research projects & collaborations</div>
+            </div>
+            <div class="kpi">
+              <div class="n">Y+</div>
+              <div class="l">Posters / talks / conference contributions</div>
+            </div>
+            <div class="kpi">
+              <div class="n">Z+</div>
+              <div class="l">Open-source notebooks / scripts</div>
+            </div>
+          </div>
+          <p class="small" style="margin-top:12px;">
+            Tip: update the KPIs with your real numbers (posters, repos, papers, etc.) for instant credibility.
+          </p>
+        </div>
+
+        <aside class="profile-card">
+          <div class="box">
+            <h2 style="margin:0 0 10px; font-size:16px;">At a glance</h2>
+            <dl class="kv">
+              <dt>Role</dt><dd>Graduate Student / Researcher</dd>
+              <dt>Affiliation</dt><dd>Northern Illinois University (NIU)</dd>
+              <dt>Location</dt><dd>Illinois, USA</dd>
+              <dt>Interests</dt><dd>Downscaling • Generative ML • Severe weather</dd>
+              <dt>Email</dt><dd><a href="mailto:you@school.edu">you@school.edu</a></dd>
+            </dl>
+          </div>
+
+          <div class="box">
+            <h2 style="margin:0 0 10px; font-size:16px;">Currently</h2>
+            <ul class="list">
+              <li>Building a downscaling pipeline for <strong>GCM → convection-permitting</strong> precipitation.</li>
+              <li>Testing <strong>diffusion model conditioning</strong> with physically meaningful baselines.</li>
+              <li>Developing <strong>regime discovery</strong> workflows (SOMs) for synoptic patterns.</li>
+            </ul>
+            <div class="divider"></div>
+            <p class="small" style="margin:0;">
+              Last updated: <span class="mono">YYYY-MM-DD</span>
+            </p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="card">
+        <h2>About</h2>
+        <p class="muted">
+          Write 6–10 sentences here: who you are, what you study, what motivates you, and what your long-term goal is.
+          Keep it human, but technical enough to signal expertise.
+        </p>
+
+        <div class="grid" style="margin-top:14px;">
+          <div class="card" style="background:rgba(17,26,51,.35)">
+            <h3>Research mission</h3>
+            <ul class="list">
+              <li><strong>Goal:</strong> learn probabilistic mappings from coarse climate fields to realistic fine-scale fields.</li>
+              <li><strong>Why:</strong> enable affordable ensembles for extremes and risk analysis.</li>
+              <li><strong>How:</strong> diffusion / deep generative modeling + rigorous evaluation (PDFs, PSDs, extremes).</li>
+            </ul>
+          </div>
+          <div class="card" style="background:rgba(17,26,51,.35)">
+            <h3>What I value</h3>
+            <ul class="list">
+              <li><strong>Reproducibility:</strong> versioned datasets, pinned envs, clear notebooks.</li>
+              <li><strong>Interpretability:</strong> diagnostics that map back to physics (spectra, balances, regimes).</li>
+              <li><strong>Open science:</strong> sharing workflows so others can build faster.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESEARCH -->
+    <section id="research">
+      <div class="card">
+        <h2>Research</h2>
+        <p class="muted">
+          This section answers: <em>What problems do you work on?</em> and <em>What methods do you use?</em>
+          Write this like an abstract: concrete + scannable.
+        </p>
+
+        <div class="grid" style="margin-top:14px;">
+          <div class="card" style="background:rgba(17,26,51,.35)">
+            <h3>Research themes</h3>
+            <ul class="list">
+              <li><strong>Generative downscaling:</strong> score-based diffusion, conditional generation, transfer learning.</li>
+              <li><strong>Severe hazards:</strong> hail proxies, convective mode classification, extreme precipitation.</li>
+              <li><strong>Pattern discovery:</strong> SOMs, clustering, regime composites, seasonality & teleconnections.</li>
+              <li><strong>Verification:</strong> FSS, Brier score, reliability, PSD/PDF matching, tail diagnostics.</li>
+            </ul>
+          </div>
+
+          <div class="card" style="background:rgba(17,26,51,.35)">
+            <h3>Datasets & tools</h3>
+            <ul class="list">
+              <li><strong>Data:</strong> ERA5, GEFS/ECMWF-style ensembles, WRF/CP-RCM outputs, radar/QPE/QPF.</li>
+              <li><strong>Formats:</strong> NetCDF, GRIB2 (cfgrib), Zarr, cloud-optimized workflows.</li>
+              <li><strong>Stack:</strong> Python, xarray/dask, PyTorch, Cartopy/Matplotlib, Git, HPC schedulers.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <h3>Representative questions I ask</h3>
+        <ul class="list">
+          <li>Can diffusion models reproduce <strong>extreme precipitation tails</strong> without collapsing variance?</li>
+          <li>How do we design <strong>baselines</strong> (e.g., smoothing/coarsen/recover) that isolate what ML adds?</li>
+          <li>Do learned regimes correspond to known dynamical drivers (jet shifts, trough/ridge patterns)?</li>
+          <li>What is the minimum conditioning needed to prevent “pretty but wrong” downscaling?</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="card">
+        <h2>Projects</h2>
+        <p class="muted">
+          Add 3–6 “featured” projects. Each project should have: goal, data, method, what you built, and a result.
+          Include links to repos, posters, or notebooks when possible.
+        </p>
+
+        <div class="grid" style="margin-top:14px;">
+          <div class="proj">
+            <div class="top">
+              <div>
+                <p class="title">Project A — Diffusion downscaling for precipitation</p>
+                <p class="desc">
+                  Conditional diffusion model for mapping coarse precipitation fields to convection-permitting structure,
+                  with evaluation on PDFs, PSDs, and extremes.
+                </p>
+              </div>
+              <span class="tagpill">Generative ML</span>
+            </div>
+            <div class="meta">
+              <span>Python</span><span>PyTorch</span><span>xarray/dask</span><span>NetCDF/Zarr</span>
+            </div>
+            <p class="small" style="margin:0;">
+              Links: <a href="https://github.com/YOURUSERNAME/REPO" target="_blank" rel="noopener">repo</a> •
+              <a href="YOUR_POSTER_LINK.pdf" target="_blank" rel="noopener">poster</a> •
+              <a href="YOUR_NOTEBOOK_LINK" target="_blank" rel="noopener">notebook</a>
+            </p>
+          </div>
+
+          <div class="proj">
+            <div class="top">
+              <div>
+                <p class="title">Project B — SOM-based synoptic regime discovery</p>
+                <p class="desc">
+                  Self-Organizing Maps trained on Z500/PWAT (or similar) to identify recurring patterns; composites of
+                  hazards by regime, season, and region.
+                </p>
+              </div>
+              <span class="tagpill">Unsupervised</span>
+            </div>
+            <div class="meta">
+              <span>MiniSom</span><span>RobustScaler</span><span>Verification</span><span>Composites</span>
+            </div>
+            <p class="small" style="margin:0;">
+              Links: <a href="https://github.com/YOURUSERNAME/REPO" target="_blank" rel="noopener">repo</a>
+            </p>
+          </div>
+
+          <div class="proj">
+            <div class="top">
+              <div>
+                <p class="title">Project C — Convective mode classification</p>
+                <p class="desc">
+                  CNN classifier for cellular / linear / mixed modes; dataset curation + QC + training + analysis of confusion modes.
+                </p>
+              </div>
+              <span class="tagpill">Deep learning</span>
+            </div>
+            <div class="meta">
+              <span>TensorFlow/Keras</span><span>SVRIMG</span><span>Confusion analysis</span>
+            </div>
+            <p class="small" style="margin:0;">Links: <a href="#" target="_blank" rel="noopener">paper/poster</a></p>
+          </div>
+
+          <div class="proj">
+            <div class="top">
+              <div>
+                <p class="title">Project D — Radar QPE + ML regression</p>
+                <p class="desc">
+                  Compare Z–R methods vs ML regression for rainfall; cross-validation and bias diagnostics against gauges.
+                </p>
+              </div>
+              <span class="tagpill">Radar</span>
+            </div>
+            <div class="meta">
+              <span>PyART</span><span>Sklearn</span><span>Verification</span>
+            </div>
+            <p class="small" style="margin:0;">Links: <a href="#" target="_blank" rel="noopener">repo</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PUBLICATIONS -->
+    <section id="publications">
+      <div class="card">
+        <h2>Publications</h2>
+        <p class="muted">
+          Use a consistent citation style. Keep it short on the homepage: full bib on a separate page if you want later.
+        </p>
+
+        <ol class="pub">
+          <li>
+            <strong>Your Name</strong>, Coauthor A, and Coauthor B, 2026:
+            Title of your manuscript. <em>Journal</em>, status.
+            <div class="where">Keywords: downscaling, diffusion, extremes • <a href="#">PDF</a> • <a href="#">DOI</a></div>
+          </li>
+          <li>
+            Coauthor A, <strong>Your Name</strong>, and Coauthor C, 2025:
+            Another paper title. <em>Journal</em>, volume(issue), pages.
+            <div class="where">Role: analysis + figures • <a href="#">PDF</a></div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- TALKS / POSTERS -->
+    <section id="talks">
+      <div class="card">
+        <h2>Talks & Posters</h2>
+        <p class="muted">List your most relevant talks/posters; link slides or abstracts when possible.</p>
+        <ul class="list">
+          <li><strong>AMS 20XX:</strong> Poster — “Title…”. <a href="#">PDF</a></li>
+          <li><strong>AGU 20XX:</strong> Poster — “Title…”. <a href="#">PDF</a></li>
+          <li><strong>NIU Research Day:</strong> Talk — “Title…”. <a href="#">Slides</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="card">
+        <h2>Experience</h2>
+        <p class="muted">Summarize roles and impacts. Keep bullets accomplishment-focused.</p>
+
+        <div class="grid" style="margin-top:14px;">
+          <div class="card" style="background:rgba(17,26,51,.35)">
+            <h3>Research positions</h3>
+            <ul class="list">
+              <li><strong>Graduate Research Assistant</strong> — NIU (YYYY–YYYY): diffusion downscaling + evaluation.</li>
+              <li><strong>Visiting Researcher</strong> — Argonne (YYYY–present): lake-breeze detection + figures for manuscripts.</li>
+              <li><strong>Undergraduate Researcher</strong> — NIU (YYYY–YYYY): CPC analogs + PPH analysis.</li>
+            </ul>
+          </div>
+          <div class="card" style="background:rgba(17,26,51,.35)">
+            <h3>Field / operations</h3>
+            <ul class="list">
+              <li><strong>Forecast committee</strong> — urban field campaigns: go/no-go briefings, mesoscale focus.</li>
+              <li><strong>Radiosonde launches</strong>: setup, launches, and rapid QC under extreme rainfall events.</li>
+              <li><strong>Instrument deployment</strong>: station siting & spacing logic for micronet design.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="card">
+        <h2>Skills</h2>
+        <div class="grid" style="margin-top:14px;">
+          <div class="card" style="background:rgba(17,26,51,.35)">
+            <h3>Technical</h3>
+            <ul class="list">
+              <li><strong>Python:</strong> xarray, numpy, pandas, scipy, scikit-learn, dask</li>
+              <li><strong>ML:</strong> PyTorch, TensorFlow/Keras, diffusion models, CNNs</li>
+              <li><strong>Viz:</strong> Matplotlib, Cartopy, GIS workflows</li>
+              <li><strong>Data:</strong> NetCDF, GRIB2/cfgrib, Zarr, reproducible pipelines</li>
+            </ul>
+          </div>
+          <div class="card" style="background:rgba(17,26,51,.35)">
+            <h3>Domain</h3>
+            <ul class="list">
+              <li><strong>Severe convection:</strong> hail/tornado environments, convective modes</li>
+              <li><strong>Hydromet:</strong> QPE/QPF verification, extremes, event attribution framing</li>
+              <li><strong>Synoptic:</strong> regime composites, teleconnections, seasonal transitions</li>
+              <li><strong>Radar:</strong> NEXRAD products, Py-ART, Z–R concepts</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="card">
+        <h2>Contact</h2>
+        <p class="muted">
+          The fastest way to reach me is email. I’m also happy to connect via GitHub/LinkedIn.
+        </p>
+
+        <div class="contact-grid" style="margin-top:14px;">
+          <div class="card" style="background:rgba(17,26,51,.35)">
+            <h3>Reach out</h3>
+            <ul class="list">
+              <li>Email: <a href="mailto:you@school.edu">you@school.edu</a></li>
+              <li>GitHub: <a href="https://github.com/YOURUSERNAME" target="_blank" rel="noopener">YOURUSERNAME</a></li>
+              <li>LinkedIn: <a href="https://www.linkedin.com/in/YOURPROFILE" target="_blank" rel="noopener">Your Profile</a></li>
+              <li>CV: <a href="YOUR_CV_LINK.pdf" target="_blank" rel="noopener">Download PDF</a></li>
+            </ul>
+          </div>
+
+          <div class="card" style="background:rgba(17,26,51,.35)">
+            <h3>What I’m looking for</h3>
+            <ul class="list">
+              <li>Research collaborations in generative downscaling & extremes</li>
+              <li>Internships / summer research positions (HPC + ML + climate)</li>
+              <li>Open-source contributions in Earth-system data tooling</li>
+            </ul>
+            <div class="divider"></div>
+            <a class="btn primary" href="mailto:you@school.edu?subject=Website%20Inquiry"><span class="dot"></span> Email me</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>
+        © <span id="year"></span> Your Name • Built with GitHub Pages •
+        <a href="#top">Back to top</a>
+      </p>
+    </footer>
+  </main>
+
+  <script>
+    // auto-update footer year
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
